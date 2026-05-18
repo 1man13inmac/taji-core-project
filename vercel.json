@@ -4,5 +4,5 @@
   "installCommand": "corepack enable && corepack pnpm install --frozen-lockfile",
   "buildCommand": "corepack pnpm --filter web build",
   "devCommand": "corepack pnpm --filter web dev",
-  "outputDirectory": ".next"
+  "outputDirectory": "apps/web/.next"
 }
