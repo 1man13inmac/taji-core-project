@@ -1,55 +1,61 @@
-# TaijiCore
+# Taji Core Project
 
-> Mapping the source — a living graph of Taijiquan lineage, principles,
-> and shared technical DNA across all traditions.
+> A structured Taijiquan PWA for lineage trees, teacher-student transmission,
+> timelines, techniques, history, philosophy, and source-backed research.
 
-## What is this?
-TaijiCore is an open, evidence-backed, living graph of Taijiquan lineages and technical features across traditions.
+## Scope
 
-## The Core Thesis
-Taijiquan's major lineages share a common ancestor, while adapting inherited methods over generations. TaijiCore maps these relationships and computes a transparent, evidence-cited common core.
+Taji Core Project provides:
+- Complete lineage and teacher page architecture
+- Family-tree style transmission views
+- Chronological timeline pages
+- Technique, history, philosophy, and source methodology sections
+- Admin and user-area scaffolding for future authenticated workflows
 
 ## Tech Stack
-- Next.js App Router + TypeScript strict
-- Tailwind CSS v4
-- Neo4j + `neo4j-driver`
-- `@react-sigma/core` graph rendering
-- Zustand + SWR
-- `next-pwa`
-- Vitest + Playwright-ready structure
 
-## Getting Started
+- Next.js App Router + TypeScript (strict)
+- Tailwind CSS v4
+- Turborepo + pnpm workspaces
+- Shared schema package in `packages/schema`
+
+## Development
+
 ```bash
 corepack enable
 corepack pnpm install
-corepack pnpm dev
+corepack pnpm --filter web dev
 ```
 
-## Seeding Neo4j
+## Quality Commands
+
 ```bash
-corepack pnpm seed
+corepack pnpm lint
+corepack pnpm test
+corepack pnpm build
 ```
+
+## CI/CD and Deployment
+
+- GitHub Actions CI: `.github/workflows/ci.yml`
+- Vercel deployment workflow: `.github/workflows/vercel-deploy.yml`
+- Vercel project config: `vercel.json`
+
+To enable Vercel deployment workflow, set repository secrets:
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
+
+## Codespaces
+
+Dev container config is in `.devcontainer/devcontainer.json`.
+
+When Codespaces starts:
+- dependencies install automatically
+- web dev server launches automatically
+- port 3000 is auto-forwarded and opens preview
 
 ## Project Structure
-- `apps/web` — Next.js PWA app
-- `packages/schema` — shared schema types
-- `packages/seed-data` — canonical seed datasets + merge utility
 
-## Contributing
-Add nodes, edges, and feature profiles with evidence and confidence metadata.
-
-## Schema Reference
-See `packages/schema/src/index.ts`.
-
-## Common Core Methodology
-`apps/web/lib/core-compute.ts` computes shared feature intersections and labels results as core / likely / style-specific.
-
-## Roadmap
-- Phase 1: Zhaobao seed + schema + graph explorer ✓
-- Phase 2: Add Chen, Yang, Wu, Sun seed data from primary sources
-- Phase 3: AI video analysis pipeline
-- Phase 4: Community contributions + PR review workflow
-- Phase 5: Fine-tuned Taiji-specific model for feature extraction
-
-## License
-MIT
+- `apps/web` — main PWA website
+- `packages/schema` — shared graph and feature schema
