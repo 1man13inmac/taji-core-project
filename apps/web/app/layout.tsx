@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { siteName } from "./lib/site-data";
+import { MainNav } from "./components/main-nav";
 
 const siteDescription =
   "Taji Core Project is a structured Taijiquan resource covering lineages, teachers, family-tree transmission, technical methods, history, and philosophy.";
@@ -44,17 +45,48 @@ export const metadata: Metadata = {
 };
 
 const navItems = [
-  ["/", "Home"],
-  ["/lineages", "Lineages"],
-  ["/teachers", "Teachers"],
-  ["/family-tree", "Family Tree"],
-  ["/timeline", "Timeline"],
-  ["/techniques", "Techniques"],
-  ["/history", "History"],
-  ["/philosophy", "Philosophy"],
-  ["/sources", "Sources"],
-  ["/about", "About"],
-] as const;
+  { href: "/", label: "Home" },
+  { href: "/lineages", label: "Lineages" },
+  { href: "/teachers", label: "Teachers" },
+  { href: "/family-tree", label: "Family Tree" },
+  { href: "/timeline", label: "Timeline" },
+  { href: "/techniques", label: "Techniques" },
+  { href: "/history", label: "History" },
+  { href: "/philosophy", label: "Philosophy" },
+  { href: "/sources", label: "Sources" },
+  { href: "/about", label: "About" },
+  { href: "/account", label: "Account" },
+  { href: "/admin", label: "Admin" },
+];
+
+const footerGroups = [
+  {
+    title: "Explore",
+    links: [
+      { href: "/lineages", label: "Lineages" },
+      { href: "/teachers", label: "Teachers" },
+      { href: "/family-tree", label: "Family Tree" },
+      { href: "/timeline", label: "Timeline" },
+    ],
+  },
+  {
+    title: "Knowledge",
+    links: [
+      { href: "/techniques", label: "Techniques" },
+      { href: "/history", label: "History" },
+      { href: "/philosophy", label: "Philosophy" },
+      { href: "/sources", label: "Sources" },
+    ],
+  },
+  {
+    title: "Platform",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/account", label: "User Area" },
+      { href: "/admin", label: "Admin Area" },
+    ],
+  },
+];
 
 export default function RootLayout({
   children,
@@ -70,22 +102,30 @@ export default function RootLayout({
               <Link href="/" className="text-2xl font-bold tracking-tight text-zinc-950">
                 {siteName}
               </Link>
-              <nav aria-label="Primary" className="flex flex-wrap gap-2 text-sm">
-                {navItems.map(([href, label]) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className="rounded-md border border-zinc-200 px-3 py-1.5 text-zinc-700 transition hover:border-zinc-400 hover:text-zinc-950"
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </nav>
+              <MainNav items={navItems} />
             </div>
           </header>
           <main className="flex-1 py-8">{children}</main>
-          <footer className="border-t border-zinc-200 py-6 text-sm text-zinc-600">
-            <p>
+          <footer className="border-t border-zinc-200 py-8 text-sm text-zinc-600">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {footerGroups.map((group) => (
+                <section key={group.title}>
+                  <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-zinc-900">
+                    {group.title}
+                  </h2>
+                  <ul className="space-y-1">
+                    {group.links.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="hover:text-zinc-900 hover:underline">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))}
+            </div>
+            <p className="mt-6">
               © {new Date().getFullYear()} {siteName}. Structured reference for Taijiquan lineages,
               methods, history, and philosophy.
             </p>
