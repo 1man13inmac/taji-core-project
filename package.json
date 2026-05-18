@@ -1,0 +1,17 @@
+{
+  "name": "taji-core-project",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.11.1",
+  "scripts": {
+    "dev": "corepack pnpm --filter web dev",
+    "build": "corepack pnpm --filter @taiji-core/schema build && corepack pnpm --filter web build",
+    "lint": "corepack pnpm --filter @taiji-core/schema lint && corepack pnpm --filter web lint",
+    "test": "corepack pnpm --filter @taiji-core/schema test",
+    "seed": "pnpm --filter @taiji-core/seed-data seed:neo4j"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.3",
+    "typescript": "^5.8.3"
+  }
+}
